@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
+import {createPost} from '../utils/crud'
 interface FormData {
   mobileno: string;
   password: string;
@@ -32,30 +32,53 @@ export const useLogin = () => {
       return;
     }
 
-    console.log(formData);
-    return;
+    // try {
+    //   // Send login request to the API
+    //   const response = await fetch('https://data-save-nraq.onrender.com/login', {
+    //     method: 'POST',
+    //     body: JSON.stringify(formData),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   });
+
+    //   const data = await response.json();
+
+    //   if (!response.ok) {
+    //     throw new Error(data.message || 'Login failed');
+    //   }
+
+    //   // Handle successful login (e.g., store token, redirect, etc.)
+    //   console.log('Login Successful:', data);
+    //   // Example: redirect to home page
+    //   router.push('/');
+    // } catch (err:any) {
+    //   if (err instanceof Error) {
+    //     setError(err.message);
+    //   } else {
+    //     setError('An unexpected error occurred');
+    //   }
+    // } finally {
+    //   setLoading(false);
+    // }
+
+
 
     try {
-      // Send login request to the API
-      const response = await fetch('https://data-save-nraq.onrender.com/login', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+      // Call createPost function to make the API request
+      const response = await createPost('https://data-save-nraq.onrender.com/login', formData);
+  
+      if (!response) {
+        throw new Error('Login failed');
       }
-
+  
       // Handle successful login (e.g., store token, redirect, etc.)
-      console.log('Login Successful:', data);
+      console.log('Login Successful:', response);
+  
       // Example: redirect to home page
       router.push('/');
-    } catch (err:any) {
+  
+    } catch (err: any) {
       if (err instanceof Error) {
         setError(err.message);
       } else {

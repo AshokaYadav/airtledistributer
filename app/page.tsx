@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-export default function Home() {
+export default function DistributorPage() {
   return (
-    <>
-    <h1>this one is at top level</h1>
-    </>
+    <div className="font-sans bg-gray-100 min-h-screen">
+      <h1>This one is main page over</h1>
+    </div>
   );
 }
